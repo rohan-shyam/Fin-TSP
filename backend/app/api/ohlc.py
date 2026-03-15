@@ -1,31 +1,72 @@
 import yfinance as yf
 from fastapi import APIRouter
+import time
 
 router = APIRouter()
 
+# simple in-memory cache
+cache = {}
+CACHE_TTL = 60  # seconds
+
+
 @router.get("/ohlc")
-def ohlc(symbol: str):
+def ohlc(symbol: str, interval: str = "5m"):
+
+    cache_key = f"{symbol}_{interval}"
+
+    # return cached data if still valid
+    if cache_key in cache:
+        data, ts = cache[cache_key]
+        if time.time() - ts < CACHE_TTL:
+            return data
 
     ticker = f"{symbol}.NS"
 
-    df = yf.download(ticker, period="5d", interval="5m")
+    period_map = {
+        "5m": "5d",
+        "15m": "1mo",
+        "1h": "3mo",
+        "1d": "5y",
+    }
+
+    df = yf.download(
+        ticker,
+        period=period_map.get(interval, "5d"),
+        interval=interval,
+    )
 
     if df.empty:
         return []
 
+    # flatten dataframe
     df = df.reset_index()
+    df.columns = [c[0] if isinstance(c, tuple) else c for c in df.columns]
 
-    df.columns = [col[0] if isinstance(col, tuple) else col for col in df.columns]
+    # yfinance returns different column names depending on interval
+    time_col = "Datetime" if "Datetime" in df.columns else "Date"
 
-    df["time"] = df["Datetime"].apply(lambda x: int(x.timestamp()))
+    # convert to unix timestamp (required by lightweight-charts)
+    df["time"] = df[time_col].apply(lambda x: int(x.timestamp()))
 
-    df = df.rename(columns={
-        "Open": "open",
-        "High": "high",
-        "Low": "low",
-        "Close": "close"
-    })
+    # rename OHLC
+    df = df.rename(
+        columns={
+            "Open": "open",
+            "High": "high",
+            "Low": "low",
+            "Close": "close",
+        }
+    )
 
+    # enforce correct ordering for lightweight-charts
     df = df.sort_values("time")
 
-    return df[["time","open","high","low","close"]].to_dict(orient="records")
+    # remove duplicate timestamps (important for chart library)
+    df = df.drop_duplicates(subset=["time"])
+
+    data = df[["time", "open", "high", "low", "close"]].to_dict(orient="records")
+
+    # store in cache
+    cache[cache_key] = (data, time.time())
+
+    return data

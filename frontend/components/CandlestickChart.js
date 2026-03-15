@@ -11,7 +11,8 @@ export default function CandlestickChart({ chartData }) {
 
     useEffect(() => {
 
-        chart.current = createChart(chartContainer.current, {
+        requestAnimationFrame(() => {
+            chart.current = createChart(chartContainer.current, {
             layout: {
                 background: { color: "#0D1117" },
                 textColor: "#94a3b8"
@@ -22,12 +23,19 @@ export default function CandlestickChart({ chartData }) {
             },
             autoSize: true
         })
-
+        
         series.current = chart.current.addSeries(CandlestickSeries)
+        })
 
         const resizeObserver = new ResizeObserver(entries => {
+
             const { width, height } = entries[0].contentRect
-            chart.current.applyOptions({ width, height })
+
+            chart.current.applyOptions({
+                width: width,
+                height: height
+            })
+
         })
 
         resizeObserver.observe(chartContainer.current)
@@ -49,7 +57,22 @@ export default function CandlestickChart({ chartData }) {
     return (
     <div
         ref={chartContainer}
-        style={{ width: "100%", height: "100%" }}
-    />
+        className="w-full h-full relative"
+    >
+        {!chartData?.length && (
+        <div className="absolute inset-0 flex items-center justify-center">
+
+            <div className="w-full h-full bg-gradient-to-br from-[#0D1117] via-[#0F141C] to-[#0D1117] animate-pulse flex items-center justify-center">
+
+            <div className="text-slate-500 text-sm">
+                Loading market data...
+            </div>
+
+            </div>
+
+        </div>
+        )}
+
+    </div>
     )
 }
