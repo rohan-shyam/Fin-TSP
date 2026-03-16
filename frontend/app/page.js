@@ -1,8 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import Header from "../components/layout/Header"
-import CandlestickChart from "../components/CandlestickChart"
+import Header from "../components/Header/Header"
+import CandlestickChart from "../components/Charts/CandlestickChart"
 
 export default function Dashboard() {
     const [chartData, setChartData] = useState([])
@@ -80,7 +80,7 @@ export default function Dashboard() {
                             
                             {/* Chart Wrapper - completely fills the parent flex child */}
                             <div className="w-full h-full relative z-10">
-                                <CandlestickChart chartData={chartData} />
+                                <CandlestickChart chartData={chartData} maLength={10}/>
                             </div>
                         </div>
                     </div>
