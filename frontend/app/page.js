@@ -13,7 +13,7 @@ export default function Dashboard() {
 
             {/* Top Navigation - Glassmorphism effect */}
             <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#06080C]/80 backdrop-blur-xl">
-                <div className="mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 flex items-center h-16 w-full">
+                <div className=" mx-auto max-w-[1600px] px-4 sm:px-6 lg:px-8 flex items-center h-16 w-full">
                     <div className="w-full">
                         <Header
                         setChartData={setChartData}
@@ -25,9 +25,9 @@ export default function Dashboard() {
             </header>
 
             {/* Main Workspace */}
-            <main className="flex-1 flex flex-col w-full max-w-[1600px] mx-auto p-4 sm:p-6 lg:p-8">
+            <main className="flex-1 flex flex-col min-h-0 w-full max-w-[1600px] ml-auto p-4 sm:p-6 lg:p-8">
 
-                {/* Page Title & Status Indicator */}
+                {/* Page Title & Status Indicator
                 <div className="mb-6 flex items-center justify-between">
                     <div>
                         <h1 className="text-xl font-semibold tracking-tight text-white">Market Overview</h1>
@@ -41,13 +41,13 @@ export default function Dashboard() {
                         </span>
                         System Operational
                     </div>
-                </div>
+                </div> */}
 
                 {/* BENTO GRID LAYOUT */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 flex-1 min-h-0">
                     
                     {/* Chart Widget Container - Taking up 2 columns for a nice rectangle, fixed height */}
-                    <div className="relative group col-span-1 lg:col-span-2 h-[450px] bg-[#0D1117] rounded-xl border border-white/[0.06] shadow-2xl flex flex-col overflow-hidden transition-all duration-300 hover:border-white/[0.1]">
+                    <div className="relative group col-span-1 lg:col-span-2 min-h-0 h-[50vh] rounded bg-[#0D1117] border border-white/[0.06] shadow-2xl flex flex-col overflow-hidden transition-all duration-300 hover:border-white/[0.1]">
                         
                         {/* Subtle top gradient highlight */}
                         <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-blue-500/20 to-transparent"></div>
@@ -56,8 +56,8 @@ export default function Dashboard() {
                         <div className="h-14 shrink-0 border-b border-white/[0.04] bg-gradient-to-b from-white/[0.02] to-transparent flex items-center px-6 justify-between">
                             <div className="flex items-center gap-4">
                                 <h2 className="text-sm font-semibold text-white tracking-wide">Primary Chart</h2>
-                                <div className="h-4 w-px bg-white/[0.1]"></div>
-                                <span className="text-xs font-medium text-slate-400">Advanced Mode</span>
+                                
+                                
                             </div>
                             
                             <div className="flex bg-black/20 rounded-lg p-1 border border-white/[0.03]">
@@ -75,7 +75,7 @@ export default function Dashboard() {
                         </div>
 
                         {/* Actual Chart Component Area - Now properly filling the remaining space */}
-                        <div className="flex-1 w-full p-4 relative min-h-0">
+                        <div className="flex-1 w-full p-4 relative ">
                             <div className="absolute inset-0 bg-gradient-to-b from-blue-500/[0.01] to-transparent pointer-events-none"></div>
                             
                             {/* Chart Wrapper - completely fills the parent flex child */}
@@ -86,9 +86,14 @@ export default function Dashboard() {
                     </div>
 
                     {/* Example of another bento box to complete the grid */}
-                    <div className="relative h-[450px] bg-[#0D1117] rounded-xl border border-white/[0.06] shadow-2xl p-6">
-                        <h2 className="text-sm font-semibold text-white tracking-wide">Market Stats</h2>
+                    <div className="relative h-[50vh] bg-[#0D1117] border rounded border-white/[0.06] shadow-2xl p-6">
+                        <h2 className="text-sm font-semibold text-white tracking-wide">Strategy Editor</h2>
                         {/* More bento content here */}
+                    </div>
+                    
+                    {/*Code editor here*/}
+                    <div className="relative min-h-screen col-span-3 bg-[#0D1117] border rounded border-white/[0.06] shadow-2xl p-6">
+
                     </div>
 
                 </div>

@@ -34,21 +34,8 @@ export default function CandlestickChart({ chartData, maLength }) {
 
         })
 
-        const resizeObserver = new ResizeObserver(entries => {
-
-            const { width, height } = entries[0].contentRect
-
-            chart.current?.applyOptions({
-                width,
-                height
-            })
-
-        })
-
-        resizeObserver.observe(chartContainer.current)
 
         return () => {
-            resizeObserver.disconnect()
             chart.current?.remove()
         }
 
