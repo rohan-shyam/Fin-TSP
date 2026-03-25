@@ -22,6 +22,11 @@ export default function CandlestickChart({ chartData, maLength }) {
             chart.current = createChartInstance(chartContainer.current)
 
             candleSeries.current = chart.current.addSeries(CandlestickSeries)
+            chart.current.applyOptions({
+                timeScale: {
+                    minimumHeight: 32,
+                }
+            })
 
             smaSeries.current = chart.current.addSeries(LineSeries, {
                 color: "#facc15",

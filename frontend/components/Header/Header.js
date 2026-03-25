@@ -4,14 +4,16 @@ import { useState, useEffect } from "react"
 import SearchBox from "./SearchBox"
 import { fetchOHLC } from "@/lib/api"
 
-export default function Header({ setChartData, interval }) {
-
+export default function Header({ setChartData, interval, onSymbolChange }) {
     const [symbol, setSymbol] = useState(null)
 
+    const handleSymbolSelect = (sym) => {
+        setSymbol(sym)
+        if (onSymbolChange) onSymbolChange(sym)
+    }
+
     useEffect(() => {
-
         if (!symbol) return
-
         async function loadData() {
             try {
                 const data = await fetchOHLC(symbol, interval)
@@ -20,14 +22,12 @@ export default function Header({ setChartData, interval }) {
                 console.error("Failed to load OHLC", err)
             }
         }
-
         loadData()
-
     }, [symbol, interval])
 
     return (
         <div className="w-full flex justify-center">
-            <SearchBox onSelectSymbol={setSymbol} />
+            <SearchBox onSelectSymbol={handleSymbolSelect} />
         </div>
     )
 }
