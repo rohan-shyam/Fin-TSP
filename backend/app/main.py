@@ -1,14 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+
 from app.api.search import router as search_router  
 from app.api.ohlc import router as ohlc_router
 from app.api.stock import router as stock_router 
+from app.api.predict import router as predict_router 
 
 app = FastAPI()
 
 origins=[
-    "http://localhost:3000","http://localhost:3001",
-    ]  
+    "http://localhost:3000",
+    "http://localhost:3001",
+]  
 
 app.add_middleware(
     CORSMiddleware,
@@ -21,5 +24,4 @@ app.add_middleware(
 app.include_router(search_router)
 app.include_router(ohlc_router)
 app.include_router(stock_router)
-
-
+app.include_router(predict_router, prefix="/predict", tags=["Prediction"])
