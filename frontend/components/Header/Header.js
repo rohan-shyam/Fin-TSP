@@ -23,10 +23,11 @@ export default function Header({ setChartData, interval, onSymbolChange }) {
             }
         }
         loadData()
-    }, [symbol, interval])
+    }, [symbol, interval, setChartData])
 
     return (
-        <div className="w-full flex justify-center">
+        // Changed to justify-center here
+        <div className="w-full flex justify-center"> 
             <SearchBox onSelectSymbol={handleSymbolSelect} />
         </div>
     )
