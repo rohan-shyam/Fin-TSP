@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8000"
+const API_BASE = "https://fin-tsp-backend.onrender.com"
 
 export async function searchStocks(query) {
     const res = await fetch(`${API_BASE}/search?q=${query}`)

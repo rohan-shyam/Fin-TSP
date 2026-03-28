@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 
-const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:8000"
+const BACKEND_URL = "https://fin-tsp-backend.onrender.com"
 
 // Improved Metric Component with better typography
 function MetricCard({ label, value, subValue, highlight }) {

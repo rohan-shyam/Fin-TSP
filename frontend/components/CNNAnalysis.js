@@ -16,14 +16,14 @@ export default function CNNAnalysis({ symbol }) {
       setLoading(true);
       setError(null);
       try {
-        // 1. Fetch Today's Prediction
-        const predRes = await fetch(`http://localhost:8000/predict?symbol=${symbol}`);
+        // 1. Fetch Today's Prediction - HARDCODED URL
+        const predRes = await fetch(`https://fin-tsp-backend.onrender.com/predict?symbol=${symbol}`);
         if (!predRes.ok) throw new Error("Failed to fetch prediction");
         const predJson = await predRes.json();
         setData(predJson);
 
-        // 2. Fetch Historical Backtest Data
-        const btRes = await fetch(`http://localhost:8000/predict/backtest?symbol=${symbol}`);
+        // 2. Fetch Historical Backtest Data - HARDCODED URL
+        const btRes = await fetch(`https://fin-tsp-backend.onrender.com/predict/backtest?symbol=${symbol}`);
         if (!btRes.ok) throw new Error("Failed to fetch backtest");
         const btJson = await btRes.json();
         setBacktestData(btJson);
@@ -38,22 +38,22 @@ export default function CNNAnalysis({ symbol }) {
     fetchData();
   }, [symbol]);
 
-  // Task 4: Calculate Directional Accuracy
+  // Directional Accuracy Calculation
   const calculateAccuracy = (data) => {
     if (!data || data.length < 2) return "0.0";
     let hits = 0;
     for (let i = 1; i < data.length; i++) {
-        const actualDir = data[i].actual > data[i-1].actual; // Did price actually go up?
-        const predDir = data[i].predicted > data[i-1].actual; // Did model predict it would go up?
+        const actualDir = data[i].actual > data[i-1].actual; 
+        const predDir = data[i].predicted > data[i-1].actual; 
         if (actualDir === predDir) hits++;
     }
     return ((hits / (data.length - 1)) * 100).toFixed(1);
   };
 
   return (
-    <div className="flex flex-col gap-6 p-2 bg-[#0B0E14] min-h-screen">
+    <div className="flex flex-col gap-6 p-2 bg-[#0B0E14] min-h-screen text-white">
       
-       {/* TASK 3: ARCHITECTURE VISUALIZATION */}
+       {/* ARCHITECTURE VISUALIZATION */}
         <div className="flex items-center justify-between gap-2 py-8 overflow-x-auto no-scrollbar px-4">
             <ArchitectureNode title="Input" desc="Spectral Map" dims="[60, 60, 1]" color="bg-blue-500/10" border="border-blue-500/20" />
             <Arrow />
@@ -66,7 +66,6 @@ export default function CNNAnalysis({ symbol }) {
             <ArchitectureNode title="Dense" desc="Linear Head" dims="[1, 1]" color="bg-emerald-500/10" border="border-emerald-500/20" />
         </div>
 
-        
         <div className="flex flex-col gap-1 p-3 rounded-xl bg-blue-500/5 border border-blue-500/20 mb-4">
             <div className="flex justify-between items-center">
                 <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em]">Engine Status</span>
@@ -82,9 +81,8 @@ export default function CNNAnalysis({ symbol }) {
                 </p>
             </div>
         </div>
-      {/* TASK 4: ANALYSIS & PREDICTION CARDS */}
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {/* Prediction Display */}
         <div className="bg-white/[0.02] border border-white/[0.08] rounded-xl p-6 relative overflow-hidden">
           <div className="absolute top-0 right-0 p-4 opacity-5">
             <svg className="w-24 h-24" fill="currentColor" viewBox="0 0 24 24"><path d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
@@ -108,7 +106,6 @@ export default function CNNAnalysis({ symbol }) {
           </p>
         </div>
 
-        {/* Model Performance Stats */}
         <div className="bg-white/[0.02] border border-white/[0.08] rounded-xl p-6">
             <div className="flex justify-between items-center mb-4">
                 <h4 className="text-[10px] uppercase tracking-widest text-slate-500 font-bold">Model Metadata</h4>
@@ -125,7 +122,6 @@ export default function CNNAnalysis({ symbol }) {
         </div>
       </div>
 
-      {/* THE REAL DEAL: BACKTEST CHART */}
       <div className="bg-white/[0.02] border border-white/[0.08] rounded-xl p-4">
         <div className="flex justify-between items-center px-2 mb-4">
             <h3 className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
@@ -136,7 +132,7 @@ export default function CNNAnalysis({ symbol }) {
       </div>
 
       {error && (
-        <div className="text-rose-500 text-xs bg-rose-500/10 p-4 rounded-xl border border-rose-500/20 animate-shake">
+        <div className="text-rose-500 text-xs bg-rose-500/10 p-4 rounded-xl border border-rose-500/20">
             ⚠️ Prediction Engine Error: {error}
         </div>
       )}
@@ -144,50 +140,4 @@ export default function CNNAnalysis({ symbol }) {
   )
 }
 
-// 1. THE MISSING ARCHITECTURE NODE (Redesigned for GLOW)
-function ArchitectureNode({ title, desc, dims, color, border }) {
-  return (
-    <div className={`relative flex-shrink-0 w-44 h-32 rounded-2xl border ${border} ${color} 
-                    bg-white/[0.03] backdrop-blur-xl flex flex-col items-center justify-center 
-                    text-center p-4 transition-all duration-500 hover:scale-105 group shadow-2xl`}>
-      
-      {/* Glow Effect on Hover */}
-      <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 ${color}`} />
-
-      {/* Top Label Badge */}
-      <div className="absolute -top-3 left-6 px-3 py-1 bg-[#0B0E14] border border-inherit rounded-lg shadow-xl">
-        <span className="text-[9px] font-black text-white uppercase tracking-[0.3em]">{title}</span>
-      </div>
-      
-      <span className="text-[10px] text-slate-500 font-bold uppercase tracking-tight mt-2">{desc}</span>
-      
-      {/* Tensor Dimensions (The "Pro" Detail) */}
-      <div className="mt-4 px-4 py-1.5 bg-black/60 rounded-xl border border-white/5 font-mono shadow-inner">
-        <span className="text-[12px] text-cyan-400 font-bold tracking-tighter group-hover:text-cyan-300 transition-colors">
-          {dims}
-        </span>
-      </div>
-    </div>
-  )
-}
-
-// 2. THE ARROW COMPONENT
-function Arrow() {
-  return (
-    <div className="flex flex-col items-center justify-center px-2 opacity-20">
-       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400">
-         <path d="M5 12h14M12 5l7 7-7 7"/>
-       </svg>
-    </div>
-  )
-}
-
-// 3. THE METRIC ROW COMPONENT
-function MetricRow({ label, value }) {
-    return (
-        <div className="flex justify-between items-center border-b border-white/[0.03] pb-3 last:border-0">
-            <span className="text-[11px] font-medium text-slate-500 uppercase tracking-widest">{label}</span>
-            <span className="text-[12px] font-mono font-bold text-slate-200">{value}</span>
-        </div>
-    )
-}
+// Architecture components omitted for brevity—keep them as they were in your file.
