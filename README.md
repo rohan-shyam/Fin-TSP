@@ -49,9 +49,9 @@ Deploying a deep learning model on a free-tier cloud environment required signif
 
 ---
 
-## 💻 Local Setup (Arch Linux)
+## 💻 Local Setup 
 
-If you're running this on Arch, ensure you have the necessary build tools:
+Ensure you have the necessary build tools:
 
 1.  **Clone the Repository:**
     ```bash
