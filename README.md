@@ -39,16 +39,6 @@ The prediction pipeline follows a rigorous four-stage process:
 
 ---
 
-## 🚀 Deployment & Challenges Overcome
-
-Deploying a deep learning model on a free-tier cloud environment required significant infrastructure optimization:
-
-* **Memory Management:** To stay under Render's **512MB RAM limit**, the environment is optimized with `TF_CPP_MIN_LOG_LEVEL=3` and restricted to a single worker to prevent OOM (Out-of-Memory) crashes during model loading.
-* **CORS Handshaking:** Implemented a wildcard CORS policy in FastAPI to bridge the communication gap between the Vercel production frontend and the Render backend.
-* **Monorepo Routing:** Configured custom Root Directories on both Vercel (`/frontend`) and Render (`/backend`) to maintain a clean project structure while ensuring successful build outputs.
-
----
-
 ## 💻 Local Setup 
 
 Ensure you have the necessary build tools:
