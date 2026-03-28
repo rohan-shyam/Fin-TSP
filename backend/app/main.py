@@ -8,17 +8,14 @@ from app.api.predict import router as predict_router
 
 app = FastAPI()
 
-origins=[
-    "http://localhost:3000",
-    "http://localhost:3001",
-]  
+
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=True
+    allow_credentials=True,
 )
 
 app.include_router(search_router)
