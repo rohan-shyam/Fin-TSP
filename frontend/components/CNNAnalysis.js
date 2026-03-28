@@ -38,7 +38,6 @@ export default function CNNAnalysis({ symbol }) {
     fetchData();
   }, [symbol]);
 
-  // Directional Accuracy Calculation
   const calculateAccuracy = (data) => {
     if (!data || data.length < 2) return "0.0";
     let hits = 0;
@@ -140,4 +139,40 @@ export default function CNNAnalysis({ symbol }) {
   )
 }
 
-// Architecture components omitted for brevity—keep them as they were in your file.
+function ArchitectureNode({ title, desc, dims, color, border }) {
+  return (
+    <div className={`relative flex-shrink-0 w-44 h-32 rounded-2xl border ${border} ${color} 
+                    bg-white/[0.03] backdrop-blur-xl flex flex-col items-center justify-center 
+                    text-center p-4 transition-all duration-500 hover:scale-105 group shadow-2xl`}>
+      <div className={`absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 ${color}`} />
+      <div className="absolute -top-3 left-6 px-3 py-1 bg-[#0B0E14] border border-inherit rounded-lg shadow-xl">
+        <span className="text-[9px] font-black text-white uppercase tracking-[0.3em]">{title}</span>
+      </div>
+      <span className="text-[10px] text-slate-500 font-bold uppercase tracking-tight mt-2">{desc}</span>
+      <div className="mt-4 px-4 py-1.5 bg-black/60 rounded-xl border border-white/5 font-mono shadow-inner">
+        <span className="text-[12px] text-cyan-400 font-bold tracking-tighter group-hover:text-cyan-300 transition-colors">
+          {dims}
+        </span>
+      </div>
+    </div>
+  )
+}
+
+function Arrow() {
+  return (
+    <div className="flex flex-col items-center justify-center px-2 opacity-20">
+       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-slate-400">
+         <path d="M5 12h14M12 5l7 7-7 7"/>
+       </svg>
+    </div>
+  )
+}
+
+function MetricRow({ label, value }) {
+    return (
+        <div className="flex justify-between items-center border-b border-white/[0.03] pb-3 last:border-0">
+            <span className="text-[11px] font-medium text-slate-500 uppercase tracking-widest">{label}</span>
+            <span className="text-[12px] font-mono font-bold text-slate-200">{value}</span>
+        </div>
+    )
+}
