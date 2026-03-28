@@ -38,11 +38,8 @@ export default function Dashboard() {
             {/* --- SIDEBAR --- */}
             <aside className="w-16 lg:w-64 shrink-0 flex flex-col border-r border-white/[0.06] bg-[#0B0E14] z-20">
                 <div className="h-16 flex items-center justify-center lg:justify-start lg:px-5 border-b border-white/[0.06] shrink-0">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center shadow-lg">
-                        <span className="text-white font-bold text-sm">QT</span>
-                    </div>
                     <span className="hidden lg:block ml-3 font-bold text-slate-200">
-                        Quant<span className="text-blue-500 font-medium">Terminal</span>
+                        Fin<span className="text-blue-500 font-medium">TSP</span>
                     </span>
                 </div>
                 <nav className="flex-1 overflow-y-auto py-5 flex flex-col gap-1.5 px-2 lg:px-3 custom-scrollbar">

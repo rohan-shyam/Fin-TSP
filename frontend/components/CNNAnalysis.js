@@ -65,7 +65,23 @@ export default function CNNAnalysis({ symbol }) {
             <Arrow />
             <ArchitectureNode title="Dense" desc="Linear Head" dims="[1, 1]" color="bg-emerald-500/10" border="border-emerald-500/20" />
         </div>
+
         
+        <div className="flex flex-col gap-1 p-3 rounded-xl bg-blue-500/5 border border-blue-500/20 mb-4">
+            <div className="flex justify-between items-center">
+                <span className="text-[10px] font-black text-blue-400 uppercase tracking-[0.2em]">Engine Status</span>
+                <span className="flex items-center gap-1.5">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
+                    <span className="text-[10px] font-bold text-emerald-400 uppercase">Universal</span>
+                </span>
+            </div>
+            <div className="mt-2">
+                <h4 className="text-xl font-mono font-bold text-white tracking-tighter">5,300+ <span className="text-xs text-slate-500 font-normal underline decoration-blue-500/50 underline-offset-4">Assets Supported</span></h4>
+                <p className="text-[9px] text-slate-500 mt-1 leading-tight uppercase font-medium">
+                    Cross-Sector Domain Generalization: NSE/BSE Universe
+                </p>
+            </div>
+        </div>
       {/* TASK 4: ANALYSIS & PREDICTION CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Prediction Display */}
