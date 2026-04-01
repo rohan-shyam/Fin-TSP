@@ -2,6 +2,8 @@
 
 **Registration Number:** TCR24CS056
 
+**Live Website:** https://fin-tsp-qtqp.vercel.app/
+
 # 💹 Fin-TSP: Neural Time-Series Terminal
 
 **Fin-TSP** (Financial Time Series Prediction) is a high-performance Neural Terminal designed for the Indian Stock Market (NSE/BSE). This project moves away from traditional 1D price-action models, treating market dynamics as a **Computer Vision** problem. By converting raw price action into **2D Spectrograms** via Short-Time Fourier Transform (STFT), a **Convolutional Neural Network (CNN)** identifies hidden spectral patterns in volatility to predict next-day price movements.
