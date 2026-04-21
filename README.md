@@ -1,6 +1,3 @@
-<img width="1528" height="740" alt="image" src="https://github.com/user-attachments/assets/7f04efc9-2f60-4baa-808b-2f24157cd2c2" />**Name:** Rohan Shyam
-
-**Registration Number:** TCR24CS056
 
 **Live Website:** https://fin-tsp-qtqp.vercel.app/
 
