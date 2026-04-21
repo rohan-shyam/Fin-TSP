@@ -1,4 +1,4 @@
-**Name:** Rohan Shyam
+<img width="1528" height="740" alt="image" src="https://github.com/user-attachments/assets/7f04efc9-2f60-4baa-808b-2f24157cd2c2" />**Name:** Rohan Shyam
 
 **Registration Number:** TCR24CS056
 
@@ -40,6 +40,13 @@ The prediction pipeline follows a rigorous four-stage process:
 4.  **Backtesting:** The system compares predictions against historical truth to calculate **Directional Accuracy** metrics.
 
 ---
+
+**Screenshots**
+<img width="1894" height="1043" alt="image" src="https://github.com/user-attachments/assets/c6ce6cdc-b9ce-4f16-971f-f1b2da9a6ace" />
+<img width="1891" height="1044" alt="image" src="https://github.com/user-attachments/assets/aa0240c5-73f0-4697-89d6-ce5b27b50a6a" />
+
+
+
 
 ## 💻 Local Setup 
 
